@@ -4,6 +4,7 @@
 
 #ifndef BIGTALKDESIGNPATTERN_RESUME_H
 #define BIGTALKDESIGNPATTERN_RESUME_H
+//‘≠–Õ¿‡
 class ICloneable
 {
 public:

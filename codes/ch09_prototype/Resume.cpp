@@ -7,6 +7,7 @@
 #include<iostream>
 using namespace std;
 
+//原型类--工作经历实现Icloneable
 class WorkExperience:public ICloneable
 {
 public:
@@ -26,6 +27,7 @@ public:
     {
         return m_company;
     }
+    //工作经历类实现克隆方法
     WorkExperience * clone() const override
     {
         return new WorkExperience(*this);
@@ -34,15 +36,16 @@ private:
     string m_workDate;
     string m_company;
 };
-
+// 具体原型类，即ConcretePrototype类，本例中为简历Resume类，实现一个克隆自身的操作
 class Resume:public ICloneable
 {
 public:
     Resume(string name)
     {
         m_name = name;
-        m_work = new WorkExperience();
+        m_work = new WorkExperience(); //简历实例化同时 实例化工作经历
     }
+    //提供clone方法调用的私有构造函数，以便克隆工作经历的数据
     Resume(WorkExperience * work)
     {
         m_work = work->clone();
@@ -62,6 +65,9 @@ public:
         cout << m_name << " " << m_sex << " " << m_age << endl;
         cout << "工作经历：" << m_work->getWorkdate() << " " << m_work->getCompany() << endl;
     }
+    /*
+     * 调用私有的构造方法，让工作经理克隆完成，然后再给这个简历最终返回一个 深复制  的奖励对象
+    */
     Resume * clone() const override
     {
         Resume* obj = new Resume(m_work);
@@ -69,6 +75,7 @@ public:
         obj->m_sex = m_sex;
         obj->m_age = m_age;
         return obj;
+
     }
 private:
     string m_name;
