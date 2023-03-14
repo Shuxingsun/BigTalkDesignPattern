@@ -1,2 +1,2 @@
 # BigTalkDesignPattern
-大话数据结构
+大话设计模式
