@@ -1,7 +1,9 @@
-#include <iostream>
+//
+// Created by sunchanghui on 2023/3/12.
+//
 
+#include "iostream"
 #include "Operation.h"
-
 using namespace std;
 
 class OperationAdd : public Operation
@@ -9,7 +11,7 @@ class OperationAdd : public Operation
 public:
     double getResult() const override
     {
-        double result = 0;
+        double result  = 0;
         result = m_numberA + m_numberB;
         return result;
     }
@@ -19,54 +21,52 @@ class OperationSub : public Operation
 public:
     double getResult() const override
     {
-        double result = 0;
+        double result  = 0;
         result = m_numberA - m_numberB;
         return result;
     }
 };
+class OperationMul :public Operation
 
-class OperationMul : public Operation
 {
 public:
     double getResult() const override
     {
         double result = 0;
-        result = m_numberA * m_numberB;
+        result = m_numberA*m_numberB;
         return result;
     }
 };
-
 class OperationDiv : public Operation
 {
 public:
     double getResult() const override
     {
         double result = 0;
-        if (m_numberB == 0)
+        if(m_numberB == 0)
         {
-            throw new invalid_argument("除数不能为0。");
+            throw new invalid_argument("除数不能为0");
         }
-        result = m_numberA / m_numberB;
+        result = m_numberA/m_numberB;
         return result;
     }
 };
-
 Operation *OperationFactory::createOperate(const char operate)
 {
     Operation *oper;
-    switch (operate)
+    switch(operate)
     {
         case '+':
-            oper = new OperationAdd();
+            oper = new OperationAdd;
             break;
         case '-':
-            oper = new OperationSub();
+            oper = new OperationSub;
             break;
         case '*':
-            oper = new OperationMul();
+            oper = new OperationMul;
             break;
         case '/':
-            oper = new OperationDiv();
+            oper = new OperationDiv;
             break;
     }
     return oper;
@@ -79,23 +79,25 @@ int main()
         string numA;
         string operate;
         string numB;
-        cout << " 请输入数字A： ";
-        cin >> numA;
-        cout << " 请选择运算符号（+、-、*、/）： ";
+        cout << "Enter A: ";
+        cin>>numA;
+        cout << "choose operations(+ - * / ): ";
         cin >> operate;
-        cout << " 请输入数字B： ";
-        cin >> numB;
+        cout << "Enter B: ";
+        cin>>numB;
 
         Operation *oper;
         oper = OperationFactory::createOperate(operate[0]);
-        oper->setNumberA(stod(numA));
-        oper->setNumberB(stod(numB));
+//        stod()将数值转换为双精度浮点数
+        oper->setNumberA((stod(numA)));
+        oper->setNumberB((stod(numB)));
         double result = oper->getResult();
         cout << result << endl;
+        getchar();
+
     }
-    catch (char *msg)
+    catch(char *msg)
     {
         cerr << msg << endl;
     }
-    return 0;
 }
